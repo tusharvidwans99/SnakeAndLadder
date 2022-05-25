@@ -8,57 +8,72 @@ namespace SnakeAndLadder
 {
     public class startGame
     {
-        static int Players = 1;
         static int Player1_Position = 0;
+        static int Player2_Position = 0;
         static int[] LadderStart = { 4, 13, 33, 42, 50, 62, 74 };
         static int[] SnakeStart = { 99, 89, 76, 66, 54, 43, 40, 27 };
+        static Random random = new Random();
         public static void GameStarted()
         {
-
-            int DieCount = 0;
-
-            Console.WriteLine($"Player Position: {Player1_Position}");
-
-            Random random = new Random();
-            
-            
-
-            while(Player1_Position != 100 || Player1_Position > 100)
+            int die1 = 0, die2 = 0;
+            Console.WriteLine($"Player1 Position: {Player1_Position}");
+            Console.WriteLine($"Player2 Position: {Player2_Position}\n");
+            while(Player1_Position < 100 && Player2_Position < 100)
             {
-                int RollDie = random.Next(6) + 1;
-                DieCount++;
-                Console.WriteLine($"Rolling Die: {RollDie}");
                 
-                if (Player1_Position + RollDie > 100)
-                {
 
-                    Console.WriteLine($"No_PLay because Player Position+Die: {Player1_Position+RollDie} number is greater that 100\n");
+                Player1_Position=playgame(Player1_Position);
+                die1++;
+                Console.WriteLine($"PLayer 1 Position: {Player1_Position}\n");
 
-                }
-                else if (isLadder(Player1_Position + RollDie))
-                {
-                    int LadderEnd = random.Next(8) + 10;
-                    Console.WriteLine($"Taking Ladder of {LadderEnd} Points from {Player1_Position + RollDie} to {(Player1_Position + RollDie) + LadderEnd}");
-                    Player1_Position = (Player1_Position + RollDie) + LadderEnd;
-                }
-                else if (isSnake(Player1_Position + RollDie))
-                {
-                    int SnakeEnd = random.Next(8) + 10;
-                    Console.WriteLine($"Snake Eating of {SnakeEnd} Points from {Player1_Position + RollDie} to {(Player1_Position + RollDie) - SnakeEnd}");
-                    Player1_Position = (Player1_Position + RollDie) - SnakeEnd;
-                }
-                else
-                {
-                    Console.WriteLine($"No snake No Ladder Moving Ahead by {RollDie}");
-                    Player1_Position += RollDie;
-                }
-                Console.WriteLine($"Player Position:{Player1_Position}\n");
+                Player2_Position=playgame(Player2_Position);
+                die2++;
+                Console.WriteLine($"Player 2 Position: {Player2_Position}\n");
+            }
+
+            if (Player1_Position == 100)
+            {
+                Console.WriteLine($"Goal Reached by Player 1 and to win game Player has to roll dice {die1} times");
+            }
+            else
+            {
+                Console.WriteLine($"Goal Reached by Player 2 and to win game Player has to roll dice {die2} times");
+            }
+        }
+
+        public static int playgame(int Player)
+        {
+            int RollDie = random.Next(6) + 1;
+            Console.WriteLine($"Rolling Die: {RollDie}");
+
+            if (Player + RollDie > 100)
+            {
+
+                Console.WriteLine($"No_PLay because Player Position+Die: {Player + RollDie} number is greater that 100");
 
             }
-            Console.WriteLine("Goal Reached by Player1");
-            Console.WriteLine($"To win the Game Player need to Roll the dice for {DieCount} times");
+            else if (isLadder(Player + RollDie))
+            {
+                int LadderEnd = random.Next(8) + 10;
+                Console.WriteLine($"Taking Ladder of {LadderEnd} Points from {Player + RollDie} to {(Player + RollDie) + LadderEnd}");
+                Player = (Player + RollDie) + LadderEnd;
+                
+            }
+            else if (isSnake(Player1_Position + RollDie))
+            {
+                int SnakeEnd = random.Next(8) + 10;
+                Console.WriteLine($"Snake Eating of {SnakeEnd} Points from {Player + RollDie} to {(Player + RollDie) - SnakeEnd}");
+                Player = (Player + RollDie) - SnakeEnd;
+            }
+            else
+            {
+                Console.WriteLine($"No snake No Ladder, Moving Ahead by {RollDie}");
+                Player += RollDie;
+            }
+            
+            return Player;
         }
-        
+
         public static bool isLadder(int position)
         {
             for( int i=0; i<LadderStart.Length;i++)
