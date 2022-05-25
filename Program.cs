@@ -4,7 +4,7 @@
     {
         public static void Main(string[] args)
         {
-            Console.WriteLine("Welcome to this problem simulates a Snake and Ladder Game.");
+            Console.WriteLine("Welcome to this problem simulates a Snake and Ladder Game.\n");
             startGame.GameStarted();
         }
     }
