@@ -17,6 +17,11 @@ namespace SnakeAndLadder
             int[] SnakeStart = { 99, 89, 76, 66, 54, 43, 40, 27 };
 
             Console.WriteLine($"Player Position: {Player1_Position}");
+
+            Random random = new Random();
+            int RollDie = random.Next(6) + 1;
+            Console.WriteLine($"Rolling Die: {RollDie}");
+            
         }
     }
 }
