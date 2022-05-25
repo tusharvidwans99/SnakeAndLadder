@@ -12,6 +12,7 @@ namespace SnakeAndLadder
         static int Player2_Position = 0;
         static int[] LadderStart = { 4, 13, 33, 42, 50, 62, 74 };
         static int[] SnakeStart = { 99, 89, 76, 66, 54, 43, 40, 27 };
+        static int flag=0;
         static Random random = new Random();
         public static void GameStarted()
         {
@@ -20,15 +21,22 @@ namespace SnakeAndLadder
             Console.WriteLine($"Player2 Position: {Player2_Position}\n");
             while(Player1_Position < 100 && Player2_Position < 100)
             {
+                do
+                {
+                    Console.WriteLine($"Player 1 is running, Position:{Player1_Position}");
+                    Player1_Position = playgame(Player1_Position);
+                    die1++;
+                    Console.WriteLine($"PLayer 1 Position: {Player1_Position}\n");
+                }
+                while (flag == 1);
+                do
+                {
+                    Console.WriteLine($"Player 2 is running, Position:{Player2_Position}");
+                    Player2_Position = playgame(Player2_Position);
+                    die2++;
+                    Console.WriteLine($"Player 2 Position: {Player2_Position}\n");
+                }while (flag == 1);
                 
-
-                Player1_Position=playgame(Player1_Position);
-                die1++;
-                Console.WriteLine($"PLayer 1 Position: {Player1_Position}\n");
-
-                Player2_Position=playgame(Player2_Position);
-                die2++;
-                Console.WriteLine($"Player 2 Position: {Player2_Position}\n");
             }
 
             if (Player1_Position == 100)
@@ -43,6 +51,7 @@ namespace SnakeAndLadder
 
         public static int playgame(int Player)
         {
+            flag = 0;
             int RollDie = random.Next(6) + 1;
             Console.WriteLine($"Rolling Die: {RollDie}");
 
@@ -57,6 +66,7 @@ namespace SnakeAndLadder
                 int LadderEnd = random.Next(8) + 10;
                 Console.WriteLine($"Taking Ladder of {LadderEnd} Points from {Player + RollDie} to {(Player + RollDie) + LadderEnd}");
                 Player = (Player + RollDie) + LadderEnd;
+                flag = 1;
                 
             }
             else if (isSnake(Player1_Position + RollDie))
