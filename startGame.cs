@@ -8,6 +8,10 @@ namespace SnakeAndLadder
 {
     public class startGame
     {
+
+        /// <summary>
+        /// Playing the Snake & Ladder game with Two Players. If someone gets ladder then he'll play again.
+        /// </summary>
         static int Player1_Position = 0;
         static int Player2_Position = 0;
         static int[] LadderStart = { 4, 13, 33, 42, 50, 62, 74 };
