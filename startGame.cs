@@ -15,7 +15,7 @@ namespace SnakeAndLadder
         public static void GameStarted()
         {
 
-            
+            int DieCount = 0;
 
             Console.WriteLine($"Player Position: {Player1_Position}");
 
@@ -26,6 +26,7 @@ namespace SnakeAndLadder
             while(Player1_Position != 100 || Player1_Position > 100)
             {
                 int RollDie = random.Next(6) + 1;
+                DieCount++;
                 Console.WriteLine($"Rolling Die: {RollDie}");
                 
                 if (Player1_Position + RollDie > 100)
@@ -55,7 +56,7 @@ namespace SnakeAndLadder
 
             }
             Console.WriteLine("Goal Reached by Player1");
-
+            Console.WriteLine($"To win the Game Player need to Roll the dice for {DieCount} times");
         }
         
         public static bool isLadder(int position)
